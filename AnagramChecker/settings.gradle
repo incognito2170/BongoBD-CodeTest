@@ -1,0 +1,2 @@
+rootProject.name='Anagram Checker'
+include ':app'

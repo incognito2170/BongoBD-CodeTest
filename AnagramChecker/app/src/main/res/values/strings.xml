@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Anagram Checker</string>
+    <string name="first_word_input_hint">enter the first word</string>
+    <string name="second_word_input_hint">enter the second word</string>
+    <string name="are_anagrams">The words are anagrams</string>
+    <string name="are_not_anagrams">The words are not anagrams</string>
+    <string name="check">Check</string>
+</resources>
