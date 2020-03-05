@@ -37,6 +37,34 @@ static boolean isAnagram(String firstWord, String secondWord) {
        return true;
 }
 
+# Call to above function from AnagramCheckerActivity:
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final EditText firstWordEt = findViewById(R.id.first_word_et);
+        final EditText secondWordEt = findViewById(R.id.second_word_et);
+        Button anagramCheckBtn = findViewById(R.id.anagram_checker_btn);
+        final TextView anagramCheckResultTv = findViewById(R.id.anagram_result_tv);
+
+        anagramCheckBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String firstWord = firstWordEt.getText().toString().trim();
+                String secondWord = secondWordEt.getText().toString().trim();
+
+                if (isAnagram(firstWord, secondWord)) {
+                    anagramCheckResultTv.setText(getResources().getString(R.string.are_anagrams));
+                } else {
+                    anagramCheckResultTv.setText(getResources().getString(R.string.are_not_anagrams));
+                }
+            }
+        });
+    }
+
 # Unit test code:
 
 public class AnagramCheckerUnitTest {
