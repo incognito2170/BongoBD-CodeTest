@@ -2,7 +2,7 @@
 
 * Unit test code is placed under "BongoBD-CodeTest/DesignPattern/app/src/test/java/com/bongotest/designpattern/".
 
-## Q2) Explain the design pattern used in following:
+### Q2) Explain the design pattern used in following:
 
 ```java
 interface Vehicle {
@@ -12,7 +12,7 @@ interface Vehicle {
 }
 ```
 
-## 2a) Explain how can you use the pattern to create car and plane class?
+### 2a) Explain how can you use the pattern to create car and plane class?
 
 ##### Answer:
 
@@ -122,7 +122,7 @@ public class FactoryMainActivity extends AppCompatActivity {
 }
 ```
 
-## 2b) Use a different design pattern for this solution.
+### 2b) Use a different design pattern for this solution.
 
 ##### Answer:
 
