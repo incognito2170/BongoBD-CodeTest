@@ -351,3 +351,4 @@ public class DecoratorMainActivity extends AppCompatActivity {
     }
 }
 ```
+As we can see, we have not changed the Core classes Vehicle, Car and Plane. By creating the wrapper and decorator classes, we have added and customized the behavior of Vehicle, Car, and Plane.
