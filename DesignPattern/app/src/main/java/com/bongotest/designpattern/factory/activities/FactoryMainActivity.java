@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bongotest.designpattern.Vehicle;
-import com.bongotest.designpattern.factory.providers.VehicleFactory;
+import com.bongotest.designpattern.factory.factories.VehicleFactory;
 
 public class FactoryMainActivity extends AppCompatActivity {
 

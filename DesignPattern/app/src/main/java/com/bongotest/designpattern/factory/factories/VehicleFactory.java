@@ -1,4 +1,4 @@
-package com.bongotest.designpattern.factory.providers;
+package com.bongotest.designpattern.factory.factories;
 
 import com.bongotest.designpattern.Vehicle;
 import com.bongotest.designpattern.factory.models.Car;
