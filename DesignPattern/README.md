@@ -4,12 +4,13 @@
 
 # Q2) Explain the design pattern used in following:
 
+```java
 interface Vehicle {
-	
 	int set_num_of_wheels()
 	int set_num_of_passengers()
 	boolean has_gas()
 }
+```
 
 # 2a) Explain how can you use the pattern to create car and plane class?
 
