@@ -22,8 +22,8 @@ To create a car and a plane class, we will simply keep Vehicle class as a base c
 
 * Car class:
 
+```java
 public class Car implements Vehicle {
-
     private int num_of_wheels,num_of_passengers;
     private boolean has_gas;
 
@@ -48,9 +48,11 @@ public class Car implements Vehicle {
         return has_gas;
     }
 }
+```
 
 * Plane class:
 
+```java
 public class Plane implements Vehicle {
 
     private int num_of_wheels,num_of_passengers;
@@ -77,9 +79,11 @@ public class Plane implements Vehicle {
         return has_gas;
     }
 }
+```
 
 * Factory class:
 
+```java
 public class VehicleFactory {
 
     public static Vehicle createCar (int num_of_wheels, int num_of_passengers,
@@ -92,9 +96,11 @@ public class VehicleFactory {
         return new Plane(num_of_passengers, num_of_wheels, has_gas);
     }
 }
+```
 
 * Main entry point to test the pattern:
 
+```java
 public class FactoryMainActivity extends AppCompatActivity {
 
     @Override
@@ -114,6 +120,7 @@ public class FactoryMainActivity extends AppCompatActivity {
                 "\n Number of wheels: "+vehicle.set_num_of_wheels()+"\n");
     }
 }
+```
 
 # 2b) Use a different design pattern for this solution.
 
@@ -131,19 +138,20 @@ As an alternative solution, we can use Decorator design pattern. The reason for 
 
 Here, we have the following interface:
 
+```java
 interface Vehicle {
-
 	int set_num_of_wheels()
 	int set_num_of_passengers()
 	boolean has_gas()
 }
+```
 
 We can have two concrete classes of Vehicle, namely Car and Plane, to define a specific vehicle.
 
 * Car class:
 
+```java
 public class Car implements Vehicle {
-
     @Override
     public int set_num_of_wheels(){
         return 4;
@@ -159,11 +167,12 @@ public class Car implements Vehicle {
         return true;
     }
 }
+```
 
 * Plane class:
 
+```java
 public class Plane implements Vehicle {
-
     @Override
     public int set_num_of_wheels(){
         return 3;
@@ -179,6 +188,7 @@ public class Plane implements Vehicle {
         return false;
     }
 }
+```
 
 So far, all is good, and we can create Car and Plane. But, supppose we would like to have some additional functionalities for the Vehicle; like Build, Model, Color, and so on. Decorator pattern will help us to achieve that if we want to do that at any point in future.
 
@@ -186,14 +196,15 @@ Now, let's take a look at the decoration portion. First, we will create an abstr
 
 * Decorator class:
 
+```java
 public abstract class VehicleDecorator implements Vehicle {
-
     protected Vehicle decoratedVehicle;
     public VehicleDecorator(Vehicle decoratedVehicle) {
         super();
         this.decoratedVehicle = decoratedVehicle;
     }
 }
+```
 
 I kept this abstract to avoid any direct instantiation since this is just a wrapper and does not add any functionality to the vehicle. Also, I have implemented Vehicle to allow adding additional functionalities to all of the defined, concrete Vehicle classes, for example, Car and Plane in this case.
 
@@ -201,8 +212,8 @@ Now, let me show one additional benefit to use decorator pattern with the given 
 
 * Fuel enum:
 
+```java
 public enum Fuel {
-
     CNG,
     OCTANE,
     ELECTRICITY,
@@ -211,11 +222,12 @@ public enum Fuel {
     JET_A1,
     JET_B
 }
+```
 
 * Build enum:
 
+```java
 public enum Build {
-
     B_1990,
     B_1992,
     B_1995,
@@ -230,13 +242,14 @@ public enum Build {
     B_2019,
     B_2020
 }
+```
 
 Lets create the FuelDecorator to add the functionality of fuel to the vehicle.
 
 * FuelDecorator class:
 
+```java
 public class FuelDecorator extends VehicleDecorator {
-
     private final String TAG = this.getClass().getSimpleName();
     private Fuel fuel;
 
@@ -261,13 +274,14 @@ public class FuelDecorator extends VehicleDecorator {
         return decoratedVehicle.has_gas();
     }
 }
+```
 
 Lets create the BuildDecorator to add the functionality of build to the vehicle.
 
 * BuildDecorator class:
 
+```java
 public class BuildDecorator extends VehicleDecorator {
-
     private final String TAG = this.getClass().getSimpleName();
     private Build build;
 
@@ -292,13 +306,14 @@ public class BuildDecorator extends VehicleDecorator {
         return decoratedVehicle.has_gas();
     }
 }
+```
 
 Now we can define the main program as entry point to execute and test the decorator code.
 
 * Main entry point to test the pattern:
 
+```java
 public class DecoratorMainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -335,3 +350,4 @@ public class DecoratorMainActivity extends AppCompatActivity {
                 "\n Number of wheels: "+vehicle.set_num_of_wheels()+"\n");
     }
 }
+```
