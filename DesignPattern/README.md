@@ -16,7 +16,7 @@ interface Vehicle {
 
 # Answer:
 
-The given interface indicates towards the factory deisgn pattern. Here, a interface is given to build two types of objects like Car and Plane. This provides a good platform to use the factory pattern and an opportunity to change the values of the objects on the fly.
+The given interface indicates towards the **Factory design pattern**. Here, a interface is given to build two types of objects like Car and Plane. This provides a good platform to use the factory pattern and an opportunity to change the values of the objects on the fly.
 
 To create a car and a plane class, we will simply keep Vehicle class as a base class. The key point of factory design pattern is that we define a class/interface and then we can have subclasses which implement the contract defined by the base class. Here the subclasses are Car and Plane class.
 
@@ -126,7 +126,7 @@ public class FactoryMainActivity extends AppCompatActivity {
 
 # Answer:
 
-As an alternative solution, we can use Decorator design pattern. The reason for choosing this is as follows:
+As an alternative solution, we can use **Decorator design pattern**. The reason for choosing this is as follows:
 
 * The decorator design pattern allows us to dynamically add functionality and behavior to an object without affecting the behavior of other existing objects in the same class.
 * We use inheritance to extend the behavior of the class. This takes place at compile time, and all of the instances of that class get the extended behavior.
