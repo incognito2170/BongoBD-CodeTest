@@ -22,6 +22,7 @@ To create a car and a plane class, we will simply keep Vehicle class as a base c
 * Car class:
 
 public class Car implements Vehicle {
+
     private int num_of_wheels,num_of_passengers;
     private boolean has_gas;
 
@@ -50,6 +51,7 @@ public class Car implements Vehicle {
 * Plane class:
 
 public class Plane implements Vehicle {
+
     private int num_of_wheels,num_of_passengers;
     private boolean has_gas;
 
@@ -78,6 +80,7 @@ public class Plane implements Vehicle {
 * Factory class:
 
 public class VehicleFactory {
+
     public static Vehicle createCar (int num_of_wheels, int num_of_passengers,
                                      boolean has_gas){
         return new Car(num_of_passengers, num_of_wheels, has_gas);
@@ -128,6 +131,7 @@ As an alternative solution, we can use Decorator design pattern. The reason for 
 Here, we have the following interface:
 
 interface Vehicle {
+
 	int set_num_of_wheels()
 	int set_num_of_passengers()
 	boolean has_gas()
@@ -182,8 +186,8 @@ Now, let's take a look at the decoration portion. First, we will create an abstr
 * Decorator class:
 
 public abstract class VehicleDecorator implements Vehicle {
-    protected Vehicle decoratedVehicle;
 
+    protected Vehicle decoratedVehicle;
     public VehicleDecorator(Vehicle decoratedVehicle) {
         super();
         this.decoratedVehicle = decoratedVehicle;
@@ -197,6 +201,7 @@ Now, let me show one additional benefit to use decorator pattern with the given 
 * Fuel enum:
 
 public enum Fuel {
+
     CNG,
     OCTANE,
     ELECTRICITY,
@@ -209,6 +214,7 @@ public enum Fuel {
 * Build enum:
 
 public enum Build {
+
     B_1990,
     B_1992,
     B_1995,
@@ -229,6 +235,7 @@ Lets create the FuelDecorator to add the functionality of fuel to the vehicle.
 * FuelDecorator class:
 
 public class FuelDecorator extends VehicleDecorator {
+
     private final String TAG = this.getClass().getSimpleName();
     private Fuel fuel;
 
@@ -259,6 +266,7 @@ Lets create the BuildDecorator to add the functionality of build to the vehicle.
 * BuildDecorator class:
 
 public class BuildDecorator extends VehicleDecorator {
+
     private final String TAG = this.getClass().getSimpleName();
     private Build build;
 
