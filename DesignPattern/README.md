@@ -2,7 +2,7 @@
 
 * Unit test code is placed under "BongoBD-CodeTest/DesignPattern/app/src/test/java/com/bongotest/designpattern/".
 
-# Q2) Explain the design pattern used in following:
+## Q2) Explain the design pattern used in following:
 
 ```java
 interface Vehicle {
@@ -12,9 +12,9 @@ interface Vehicle {
 }
 ```
 
-# 2a) Explain how can you use the pattern to create car and plane class?
+## 2a) Explain how can you use the pattern to create car and plane class?
 
-# Answer:
+##### Answer:
 
 The given interface indicates towards the **Factory design pattern**. Here, a interface is given to build two types of objects like Car and Plane. This provides a good platform to use the factory pattern and an opportunity to change the values of the objects on the fly.
 
@@ -122,9 +122,9 @@ public class FactoryMainActivity extends AppCompatActivity {
 }
 ```
 
-# 2b) Use a different design pattern for this solution.
+## 2b) Use a different design pattern for this solution.
 
-# Answer:
+##### Answer:
 
 As an alternative solution, we can use **Decorator design pattern**. The reason for choosing this is as follows:
 
