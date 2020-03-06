@@ -5,8 +5,8 @@
 
 # Answer:
 
+```java
 static boolean isAnagram(String firstWord, String secondWord) {
-
        if (null == firstWord || null == secondWord || firstWord.equals("") || secondWord.equals("")) {
            return false;
        } else if (firstWord.length() != secondWord.length()) {
@@ -36,9 +36,11 @@ static boolean isAnagram(String firstWord, String secondWord) {
        
        return true;
 }
+```
 
 # Call to above function from AnagramCheckerActivity:
 
+```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     
@@ -64,11 +66,12 @@ static boolean isAnagram(String firstWord, String secondWord) {
             }
         });
     }
+```
 
 # Unit test code:
 
+```java
 public class AnagramCheckerUnitTest {
-
     @Test
     public void testIsAnagram_testNullValues_returnsFalse() {
         assertFalse(AnagramCheckerActivity.isAnagram(null, null));
@@ -158,3 +161,4 @@ public class AnagramCheckerUnitTest {
                 "Hi this is a large string to test anagram. If the test fails then there is problem."));
     }
 }
+```
