@@ -24,28 +24,20 @@ To create a car and a plane class, we will simply keep Vehicle class as a base c
 
 ```java
 public class Car implements Vehicle {
-    private int num_of_wheels,num_of_passengers;
-    private boolean has_gas;
-
-    public Car(int num_of_passengers, int num_of_wheels, boolean has_gas){
-        this.num_of_passengers = num_of_passengers;
-        this.num_of_wheels = num_of_wheels;
-        this.has_gas = has_gas;
-    }
 
     @Override
     public int set_num_of_wheels() {
-        return num_of_wheels;
+        return 4;
     }
 
     @Override
     public int set_num_of_passengers() {
-        return num_of_passengers;
+        return 5;
     }
 
     @Override
     public boolean has_gas() {
-        return has_gas;
+        return true;
     }
 }
 ```
@@ -55,28 +47,19 @@ public class Car implements Vehicle {
 ```java
 public class Plane implements Vehicle {
 
-    private int num_of_wheels,num_of_passengers;
-    private boolean has_gas;
-
-    public Plane(int num_of_passengers, int num_of_wheels, boolean has_gas){
-        this.num_of_passengers = num_of_passengers;
-        this.num_of_wheels = num_of_wheels;
-        this.has_gas = has_gas;
-    }
-
     @Override
     public int set_num_of_wheels() {
-        return num_of_wheels;
+        return 6;
     }
 
     @Override
     public int set_num_of_passengers() {
-        return num_of_passengers;
+        return 350;
     }
 
     @Override
     public boolean has_gas() {
-        return has_gas;
+        return false;
     }
 }
 ```
@@ -85,15 +68,14 @@ public class Plane implements Vehicle {
 
 ```java
 public class VehicleFactory {
-
-    public static Vehicle createCar (int num_of_wheels, int num_of_passengers,
-                                     boolean has_gas){
-        return new Car(num_of_passengers, num_of_wheels, has_gas);
-    }
-
-    public static Vehicle createPlane ( int num_of_wheels,int num_of_passengers,
-                                        boolean has_gas){
-        return new Plane(num_of_passengers, num_of_wheels, has_gas);
+    public static Vehicle getVehicle (String vehicle){
+        String vehicleName = vehicle.toLowerCase();
+        if (Car.class.getSimpleName().toLowerCase().equals(vehicleName)) {
+            return new Car();
+        } else if (Plane.class.getSimpleName().toLowerCase().equals(vehicleName)) {
+            return new Plane();
+        }
+        return null;
     }
 }
 ```
@@ -106,18 +88,39 @@ public class FactoryMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_factory);
 
-        Vehicle car = VehicleFactory.createCar(4,6,true);
+        Vehicle car = VehicleFactory.getVehicle("Car");
         printValue(car);
 
-        Vehicle plane = VehicleFactory.createPlane(6,200,false);
+        Vehicle plane = VehicleFactory.getVehicle("Plane");
         printValue(plane);
     }
 
-    private static void printValue(Vehicle vehicle){
-        System.out.println(vehicle.getClass().getSimpleName()+":\n Has gas: "+vehicle.has_gas()+
-                "\n Number of Passengers: "+vehicle.set_num_of_passengers()+
-                "\n Number of wheels: "+vehicle.set_num_of_wheels()+"\n");
+    private void printValue(Vehicle vehicle){
+        if (isObjectNull(vehicle)) {
+            return;
+        }
+
+        System.out.println(vehicle.getClass().getSimpleName()+":\n Has gas: "+getVehicleHasGas(vehicle)+
+                "\n Number of Passengers: "+getVehicleNumOfPassengers(vehicle)+
+                "\n Number of wheels: "+getVehicleNumOfWheels(vehicle)+"\n");
+    }
+
+    public static boolean isObjectNull(Vehicle vehicle) {
+        return null == vehicle;
+    }
+
+    public static boolean getVehicleHasGas(Vehicle vehicle) {
+        return vehicle.has_gas();
+    }
+
+    public static int getVehicleNumOfPassengers(Vehicle vehicle) {
+        return vehicle.set_num_of_passengers();
+    }
+
+    public static int getVehicleNumOfWheels(Vehicle vehicle) {
+        return vehicle.set_num_of_wheels();
     }
 }
 ```
@@ -250,7 +253,6 @@ Lets create the FuelDecorator to add the functionality of fuel to the vehicle.
 
 ```java
 public class FuelDecorator extends VehicleDecorator {
-    private final String TAG = this.getClass().getSimpleName();
     private Fuel fuel;
 
     public FuelDecorator(Vehicle decoratedVehicle, Fuel fuel) {
@@ -270,8 +272,11 @@ public class FuelDecorator extends VehicleDecorator {
 
     @Override
     public boolean has_gas() {
-        Log.d(TAG,"The type of fuel used in this vehicle is " + fuel);
         return decoratedVehicle.has_gas();
+    }
+
+    public Enum<Fuel> getFuel() {
+        return fuel;
     }
 }
 ```
@@ -282,7 +287,6 @@ Lets create the BuildDecorator to add the functionality of build to the vehicle.
 
 ```java
 public class BuildDecorator extends VehicleDecorator {
-    private final String TAG = this.getClass().getSimpleName();
     private Build build;
 
     public BuildDecorator(Vehicle decoratedVehicle, Build build) {
@@ -292,7 +296,6 @@ public class BuildDecorator extends VehicleDecorator {
 
     @Override
     public int set_num_of_wheels() {
-        Log.d(TAG,"The build of the vehicle is " + build);
         return decoratedVehicle.set_num_of_wheels();
     }
 
@@ -305,6 +308,10 @@ public class BuildDecorator extends VehicleDecorator {
     public boolean has_gas() {
         return decoratedVehicle.has_gas();
     }
+
+    public Enum<Build> getBuild() {
+        return build;
+    }
 }
 ```
 
@@ -314,40 +321,76 @@ Now we can define the main program as entry point to execute and test the decora
 
 ```java
 public class DecoratorMainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_decorator);
 
-        // Creating simple Vehicle objects
-        // Creating simple Car object
+        // Creating simple Vehicle objects:
+        // Creating simple Car object:
         Vehicle car = new Car();
         printValue(car);
-        // Creating simple Plane object
+        // Creating simple Plane object:
         Vehicle plane = new Plane();
         printValue(plane);
 
-        // Created Decorated Vehicle objects
-        // Creating Decorated Car of B_2015 Build and CNG Fuel
+        // Creating Decorated Vehicle objects:
+        // Creating Decorated Car of B_2015 Build and CNG Fuel:
         Vehicle car1 = new BuildDecorator(new FuelDecorator(new Car(), Fuel.CNG), Build.B_2015);
         printValue(car1);
-        // Creating Decorated Plane of B_2019 Build and JET_A Fuel
+        // Creating Decorated Plane of B_2019 Build and JET_A Fuel:
         Vehicle plane1 = new BuildDecorator(new FuelDecorator(new Plane(), Fuel.JET_A), Build.B_2019);
         printValue(plane1);
 
         // Order of decorator is also not much important here, since all are unique functionalities.
         // We can also do this nesting of functionalities in separate statements.
-        // Creating object with similar functionalities in separate statements
+        // Creating Decorated Car of B_2015 Build and CNG Fuel in separate statements:
         Car car2 = new Car();
-        BuildDecorator buildDecorator = new BuildDecorator(car2, Build.B_2015);
-        FuelDecorator fuelDecorator = new FuelDecorator(buildDecorator, Fuel.CNG);
-        Vehicle car3 = fuelDecorator;
-        printValue(car3);
+        BuildDecorator buildDecorator1 = new BuildDecorator(car2, Build.B_2015);
+        FuelDecorator fuelDecorator1 = new FuelDecorator(buildDecorator1, Fuel.CNG);
+        Vehicle car3 = fuelDecorator1;
+        printValue(car3, buildDecorator1, fuelDecorator1);
+        // Creating Decorated CPlane of B_2019 Build and JET_A Fuel in separate statements:
+        Plane plane2 = new Plane();
+        BuildDecorator buildDecorator2 = new BuildDecorator(plane2, Build.B_2019);
+        FuelDecorator fuelDecorator2 = new FuelDecorator(buildDecorator2, Fuel.JET_A);
+        Vehicle plane3 = fuelDecorator2;
+        printValue(plane3, buildDecorator2, fuelDecorator2);
     }
 
-    private static void printValue(Vehicle vehicle){
-        System.out.println(vehicle.getClass().getSimpleName()+":\n Has gas: "+vehicle.has_gas()+
-                "\n Number of Passengers: "+vehicle.set_num_of_passengers()+
-                "\n Number of wheels: "+vehicle.set_num_of_wheels()+"\n");
+    private void printValue(Vehicle vehicle){
+        System.out.println(vehicle.getClass().getSimpleName()+":\n Has gas: "+getVehicleHasGas(vehicle)+
+                "\n Number of Passengers: "+getVehicleNumOfPassengers(vehicle)+
+                "\n Number of wheels: "+getVehicleNumOfWheels(vehicle)+"\n");
+    }
+
+    private void printValue(Vehicle vehicle, BuildDecorator buildDecorator, FuelDecorator fuelDecorator){
+        System.out.println(vehicle.getClass().getSimpleName()+":\n Has gas: "+getVehicleHasGas(vehicle)+
+                "\n Fuel: "+getVehicleFuel(fuelDecorator)+
+                "\n Build: "+getVehicleBuild(buildDecorator)+
+                "\n Number of Passengers: "+getVehicleNumOfPassengers(vehicle)+
+                "\n Number of wheels: "+getVehicleNumOfWheels(vehicle)+"\n");
+    }
+
+    public static boolean getVehicleHasGas(Vehicle vehicle) {
+        return vehicle.has_gas();
+    }
+
+    public static int getVehicleNumOfPassengers(Vehicle vehicle) {
+        return vehicle.set_num_of_passengers();
+    }
+
+    public static int getVehicleNumOfWheels(Vehicle vehicle) {
+        return vehicle.set_num_of_wheels();
+    }
+
+    public static Enum<Build> getVehicleBuild(BuildDecorator vehicle) {
+        return vehicle.getBuild();
+    }
+
+    public static Enum<Fuel> getVehicleFuel(FuelDecorator vehicle) {
+        return vehicle.getFuel();
     }
 }
 ```
