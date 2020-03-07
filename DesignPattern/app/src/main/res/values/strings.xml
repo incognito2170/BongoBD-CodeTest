@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Design Pattern</string>
+    <string name="factory_design_pattern">Factory Design Pattern</string>
+    <string name="decorator_design_pattern">Decorator Design Pattern</string>
+    <string name="see_logcat_message">See logcat for logged and printed messages.</string>
 </resources>
