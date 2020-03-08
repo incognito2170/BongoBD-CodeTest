@@ -476,6 +476,7 @@ We can have the following test class to write unit test code for video player:
 
 * VideoPlayerActivityUnitTest.java:
 
+```java
 public class VideoPlayerActivityUnitTest {
 
     @Test
@@ -598,4 +599,4 @@ public class VideoPlayerActivityUnitTest {
         assertNotEquals("10:51:55", VideoPlayerActivity.milliSecondsToTimer(39115500));
     }
 }
-
+```
