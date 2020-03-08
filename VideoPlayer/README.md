@@ -8,7 +8,7 @@
 
 Several design patterns can be used to solve this problem. For example, Facade pattern, Comand pattern, etc. I will be using **Facade design pattern** to build this application. It might seem that Command pattern would be more suited as the play/pause functionality is under the same button, but I believe Facade will be more suited to implement a smooth solution.
 
-Our layout file will consist of one VideoView, one SeekBar, two TextViews to show current video progress and remaining time, and three Button widgets for Play, Rewind and Forward functionalities.
+Our layout file will consist of one VideoView, one SeekBar, two TextViews to show current video progress and remaining time, and three ImageButton widgets for Play, Rewind and Forward functionalities.
 
 * activity_video_player.xml:
 
