@@ -2,4 +2,4 @@
 
 #### Solution to Q1: AnagramChecker
 #### Solution to Q2: DesignPattern
-#### Solution to Q3:
+#### Solution to Q3: VideoPlayer
