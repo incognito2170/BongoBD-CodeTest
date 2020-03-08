@@ -24,16 +24,9 @@ import com.bongotest.videoplayer.interfaces.UpdateInterface;
 public class VideoPlayerActivity extends AppCompatActivity implements View.OnClickListener, UpdateInterface, SeekBar.OnSeekBarChangeListener {
     private static final String VIDEO_SAMPLE = "tacoma_narrows";
     private VideoView mVideoView;
-
-    private Uri getMedia() {
-        return Uri.parse("android.resource://" + getPackageName() +
-                "/raw/" + VIDEO_SAMPLE);
-    }
-
     private int mCurrentPosition = 0;
     private static final String PLAYBACK_TIME = "play_time";
-    private final String TAG = this.getClass().getSimpleName();
-    private ImageButton btnPlay, btnRewind, btnForward;
+    private ImageButton btnPlay;
     private PlayerInterface player;
     private int pauseDrawable, playDrawable;
     private SeekBar seekBar;
@@ -74,9 +67,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
                 }
                 break;
             case Constants.FORWARD:
-                if ((mVideoView.getCurrentPosition() + 10000) < mVideoView.getDuration()) {
-                    mVideoView.seekTo(mVideoView.getCurrentPosition() + 10000);
-                }
+                mVideoView.seekTo(Math.min((mVideoView.getCurrentPosition() + 10000), mVideoView.getDuration()));
                 break;
             case Constants.SEEK:
                 mVideoView.seekTo(progressAfterSeek);
@@ -114,8 +105,8 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     private void initialization() {
         mVideoView = findViewById(R.id.videoView);
-        btnRewind = findViewById(R.id.btnRewind);
-        btnForward = findViewById(R.id.btnForward);
+        ImageButton btnRewind = findViewById(R.id.btnRewind);
+        ImageButton btnForward = findViewById(R.id.btnForward);
         btnPlay = findViewById(R.id.btnPlay);
         seekBar = findViewById(R.id.seekbar);
         progressTimeTv = findViewById(R.id.progress_time_tv);
@@ -139,7 +130,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         btnPlay.setTag(tag);
     }
 
-    public String getTag() {
+    private String getTag() {
         return (String) btnPlay.getTag();
     }
 
@@ -159,9 +150,15 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         initializePlayer();
     }
 
+    private Uri getMedia() {
+        return Uri.parse("android.resource://" + getPackageName() +
+                "/raw/" + VIDEO_SAMPLE);
+    }
+
     private void initializePlayer() {
         Uri videoUri = getMedia();
         mVideoView.setVideoURI(videoUri);
+
         if (mCurrentPosition > 0) {
             mVideoView.seekTo(mCurrentPosition);
         } else {
@@ -246,7 +243,8 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         super.onPause();
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            mVideoView.pause();
+            player.pause();
+            changeImage(playDrawable);
         }
     }
 
@@ -272,14 +270,14 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    public String milliSecondsToTimer(long milliseconds) {
+    public static String milliSecondsToTimer(long milliseconds) {
         if (milliseconds % 1000 != 0) {
             milliseconds = milliseconds + (1000 - (milliseconds % 1000));
         }
 
         String finalTimerString = "";
-        String secondsString = "";
-        String minutesString = "";
+        String secondsString;
+        String minutesString;
 
         // Convert total duration into time
         int hours = (int) (milliseconds / (1000 * 60 * 60));
